@@ -5,7 +5,7 @@
  -->
  <?php
 //login to database server
-@ $db = mysql_pconnect('localhost','root','bumblebumble');
+@ $db = mysql_pconnect('localhost','sunnypop','moodmusic1');
 
 //report error and quit if login failed
 if(!db)
@@ -19,5 +19,5 @@ else
 }
 
 //choose the correct database
-$db_found = mysql_select_db('sunnypop',$db);
+$db_found = mysql_select_db('sunnyPop',$db);
 ?>

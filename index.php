@@ -27,8 +27,16 @@
             //if ping to database works, it is connected so continue
             if(mysql_ping())
             {
-                //YQL: get city and country
-                $baseYQL = 	    "http://query.yahooapis.com/v1/public/yql?q=select%20city%2C%20country_name%20from%20pidgets.geoip%20where%20ip%3D'";
+                //get city and country
+				//NOTE: pidgets.geoip proved unreliable for some cities and ip.location was no longer available for use
+				// 		so using geoplugin instead
+				$geoStuff = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['REMOTE_ADDR']));
+	
+				$city = $geoStuff['geoplugin_city'];
+				$country = $geoStuff['geoplugin_countryName'];
+				
+				//unrelaible code
+                /*?>$baseYQL = 	    "http://query.yahooapis.com/v1/public/yql?q=select%20city%2C%20country_name%20from%20pidgets.geoip%20where%20ip%3D'";
                 $endYQL = "'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
                 $YQL = $baseYQL.$ip.$endYQL;
                 
@@ -46,7 +54,7 @@
                 
                 //store in variables
                 $city = $yqlObject->{'query'}->{'results'}->{'Result'}->{'city'};
-                $country = $yqlObject->{'query'}->{'results'}->{'Result'}->{'country_name'};
+                $country = $yqlObject->{'query'}->{'results'}->{'Result'}->{'country_name'};<?php */
 				
 				//get the current week number and year
 				$weekNumber = date("W");
